@@ -21,7 +21,22 @@ class Product extends Model
         'seller_id',
     ];
 
-    public function isDisponible(){
+    public function isDisponible()
+    {
         return $this->status === self::PRODUCTO_DISPONIBLE;
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo(Seller::class);
+    }
+
+    public function transaction(){
+        return $this->hasMany(Transaction::class);
     }
 }
