@@ -14,5 +14,5 @@ class Buyer extends User
         return $this->hasMany(Transaction::class);
     }
 
-    
+
 }
