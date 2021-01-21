@@ -34,7 +34,6 @@ class TransactionFactory extends Factory
 
 
         return [
-            'name' => $this->faker->word(),
             'quantity' => $this->faker->numberBetween(1, 3),
             'buyer_id' => $comprador->id,
             'product_id' => $vendedor->products->random(),
