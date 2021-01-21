@@ -42,9 +42,12 @@ class DatabaseSeeder extends Seeder
         \App\Models\Product::factory($numProducts)->create();
 
 
-        \App\Models\Transaction::factory($numTransactions)->create()->each(function ($product) { //Asociar las categorias creadas con los productos
+        \App\Models\Product::factory($numTransactions)->create()->each(function ($product) { //Asociar las categorias creadas con los productos
             $categories = Category::all()->random(mt_rand(1, 5))->pluck('id'); //Obtener solo el id
             $product->categories()->attach($categories); //Relacionamos las categoria con el producto.
         });
+
+
+        \App\Models\Transaction::factory($numTransactions)->create();
     }
 }
