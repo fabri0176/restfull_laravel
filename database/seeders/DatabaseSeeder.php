@@ -49,5 +49,7 @@ class DatabaseSeeder extends Seeder
 
 
         \App\Models\Transaction::factory($numTransactions)->create();
+        
+        
     }
 }
