@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
 
         //Ejecutar Factories
-        $numUsers = 200;
+        $numUsers = 1000;
         $numCategories = 30;
         $numProducts = 1000;
         $numTransactions = 1000;
@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
 
 
         \App\Models\Transaction::factory($numTransactions)->create();
-        
-        
+
+
     }
 }
