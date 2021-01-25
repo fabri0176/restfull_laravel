@@ -18,7 +18,7 @@ class BuyerController extends ApiController
         //buyers son usuarios que tienen transacciones
         $buyers = Buyer::has('transactions')->get();
 
-        return response()->json(['data' => $buyers], 200);
+        return $this->showAll($buyers);
     }
 
     /**
@@ -31,7 +31,6 @@ class BuyerController extends ApiController
     {
         /** @var Buyer $comprador */
         $comprador = Buyer::has('transactions')->findOrFail($id);
-
-        return response()->json(['data' => $comprador],200);
+        return $this->showOne($comprador);
     }
 }
