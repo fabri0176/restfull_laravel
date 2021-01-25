@@ -68,4 +68,14 @@ class User extends Authenticatable
     {
         return Str::random(40);
     }
+
+
+    public function setNameAttribute($value){
+        $this->attributes['name'] = mb_strtolower($value);
+    }
+
+    public function getNameAttribute($value){
+        return ucwords($value);
+    }
+
 }
