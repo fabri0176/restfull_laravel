@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\Traits\ApiResponser;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -58,6 +59,10 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($e, $request);
+        }
+
+        if ($e instanceof ModelNotFoundException) {
+            return $this->errorResponse("No existe la instancia con el id enviado", 404);
         }
 
         return parent::render($request, $e);
