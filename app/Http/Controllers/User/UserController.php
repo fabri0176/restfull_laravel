@@ -16,10 +16,8 @@ class UserController extends ApiController
      */
     public function index()
     {
-
         $usuarios = User::all();
         return $this->showAll($usuarios);
-
     }
 
 
@@ -52,8 +50,7 @@ class UserController extends ApiController
 
 
         $usuario = User::create($campos);
-        return $this->showOne($usuario,201);
-
+        return $this->showOne($usuario, 201);
     }
 
     /**
@@ -108,7 +105,7 @@ class UserController extends ApiController
 
         if ($request->has('admin')) {
             if (!$user->esVerificado()) {
-                return response()->json(['error' => 'Unicamente los usuarios verifciados pueden actualizar a administradores', 'code' => 409], 409);
+                return $this->errorResponse('Unicamente los usuarios verifciados pueden actualizar a administradores', 409);
             }
 
             $user->admin = $request->admin;
@@ -135,6 +132,6 @@ class UserController extends ApiController
 
         $user->delete();
 
-        return response()->json(['data' => $user],200);
+        return response()->json(['data' => $user], 200);
     }
 }
