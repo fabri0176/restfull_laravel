@@ -62,7 +62,8 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof ModelNotFoundException) {
-            return $this->errorResponse("No existe la instancia con el id enviado", 404);
+            $model = class_basename($e->getModel());
+            return $this->errorResponse(sprintf("No existe la instancia de %s con el id enviado",strtolower($model)), 404);
         }
 
         return parent::render($request, $e);
