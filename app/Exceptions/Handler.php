@@ -90,13 +90,16 @@ class Handler extends ExceptionHandler
 
         if ($e instanceof QueryException) {
             $codigo = $e->errorInfo[1];
-            if($codigo == 1451){
+            if ($codigo == 1451) {
                 return $this->errorResponse("No es posible eliminar un registro relacionado de forma permanente", 409);
             }
-
         }
 
-        return parent::render($request, $e);
+        if (config('app.debug')) { //Si se está en módo depuración mostrar el error completo
+            return parent::render($request, $e);
+        }
+
+        return $this->errorResponse('Falla inesperada. Intente luego', 500);
     }
 
 
