@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use App\Traits\ApiResponser;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
@@ -63,9 +65,26 @@ class Handler extends ExceptionHandler
 
         if ($e instanceof ModelNotFoundException) {
             $model = class_basename($e->getModel());
-            return $this->errorResponse(sprintf("No existe la instancia de %s con el id enviado",strtolower($model)), 404);
+            return $this->errorResponse(sprintf("No existe la instancia de %s con el id enviado", strtolower($model)), 404);
+        }
+
+        if ($e instanceof AuthorizationException) {
+            return $this->errorResponse('No posee permisos para ejecutar esta acción', 403);
         }
 
         return parent::render($request, $e);
+    }
+
+
+    /**
+     * Convert an authentication exception into a response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $this->errorResponse('No autenticado', 401);
     }
 }
