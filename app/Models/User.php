@@ -7,11 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     protected $table = 'users';
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
+
+    protected $dates = [
+        'deleted_at'
+    ];
 
     const USER_VERIFICADO = '1';
     const USER_NO_VERIFICADO = '0';
@@ -70,12 +75,19 @@ class User extends Authenticatable
     }
 
 
-    public function setNameAttribute($value){
+    public function setNameAttribute($value)
+    {
         $this->attributes['name'] = mb_strtolower($value);
     }
 
-    public function getNameAttribute($value){
+    /**
+     * Undocumented function
+     *
+     * @param string $value
+     * @return string
+     */
+    public function getNameAttribute($value)
+    {
         return ucwords($value);
     }
-
 }

@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('status')->default(Product::PRODUCTO_NO_DISPONIBLE);
             $table->string('image');
             $table->bigInteger('seller_id')->unsigned();
+            $table->softDeletes();
 
             # seller_id hace referencia a la tabla users -> id
             $table->foreign('seller_id')->references('id')->on('users');

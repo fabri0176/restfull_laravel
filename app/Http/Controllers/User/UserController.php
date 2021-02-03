@@ -121,7 +121,7 @@ class UserController extends ApiController
      * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($user)
+    public function destroy(User $user)
     {
 
         $user->delete();
