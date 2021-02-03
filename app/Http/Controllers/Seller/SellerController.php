@@ -19,18 +19,14 @@ class SellerController extends ApiController
         return $this->showAll($sellers);
     }
 
-
-
     /**
      * Display the specified resource.
      *
      * @param  Seller  $seller
      * @return \Illuminate\Http\Response
      */
-    public function show( Seller $seller)
+    public function show(Seller $seller)
     {
-
-
         return $this->showOne($seller);
     }
 }
