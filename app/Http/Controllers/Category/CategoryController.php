@@ -63,7 +63,18 @@ class CategoryController extends ApiController
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->fill($request->only([
+            'name',
+            'description',
+        ]));
+
+        if($category->isClean()){ //Si na han cambiado los valores
+            return $this->errorResponse("Debe actualizar al menos un parámetro",422);
+        }
+
+        $category->save();
+
+        return $this->showOne($category);
     }
 
     /**
