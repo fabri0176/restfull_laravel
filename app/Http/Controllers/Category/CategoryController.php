@@ -68,8 +68,8 @@ class CategoryController extends ApiController
             'description',
         ]));
 
-        if($category->isClean()){ //Si na han cambiado los valores
-            return $this->errorResponse("Debe actualizar al menos un parámetro",422);
+        if ($category->isClean()) { //Si na han cambiado los valores
+            return $this->errorResponse("Debe actualizar al menos un parámetro", 422);
         }
 
         $category->save();
@@ -85,6 +85,8 @@ class CategoryController extends ApiController
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return $this->showOne($category);
     }
 }
